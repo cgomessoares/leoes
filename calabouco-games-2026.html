@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Torneio Calabouço CrossFit 2026 | CrossFit Leões</title>
+    <title>Ranking Oficial | Calabouço Games 2026 - CrossFit Leões</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -17,8 +17,9 @@
                     colors: {
                         darkbg: '#0a0a0c',
                         cardbg: '#141418',
-                        accentgold: '#f59e0b',
-                        bronze: '#cd7f32',
+                        accentpurple: '#9333ea',
+                        accentpurplelight: '#a78bfa',
+                        bronze: '#8a7a99',
                         silver: '#c0c0c0',
                     }
                 }
@@ -41,131 +42,48 @@
             box-sizing: border-box;
         }
         .hero-industrial {
-            background: linear-gradient(180deg, rgba(10, 10, 12, 0.9) 0%, rgba(10, 10, 12, 0.98) 100%), 
-                        radial-gradient(circle at center, rgba(245, 158, 11, 0.1) 0%, transparent 70%);
+            background: linear-gradient(180deg, rgba(10, 10, 12, 0.9) 0%, rgba(10, 10, 12, 0.98) 100%),
+                        radial-gradient(circle at center, rgba(147, 51, 234, 0.12) 0%, transparent 70%);
         }
         .card-border {
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
         .card-border:hover {
-            border-color: rgba(245, 158, 11, 0.3);
+            border-color: rgba(167, 139, 250, 0.35);
         }
     </style>
 </head>
-<body class="antialiased selection:bg-amber-500 selection:text-black w-full overflow-x-hidden">
+<body class="antialiased selection:bg-violet-500 selection:text-white w-full overflow-x-hidden">
 
     <header class="sticky top-0 z-50 bg-darkbg/95 backdrop-blur-md border-b border-white/15 w-full">
         <div class="w-full max-w-6xl mx-auto px-3 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
             <div class="flex items-center space-x-2 sm:space-x-3">
                 <div>
-                    <span class="block text-[8px] sm:text-xs uppercase tracking-widest text-amber-500 font-extrabold">CrossFit Leões</span>
-                    <span class="text-xs sm:text-lg font-black tracking-wider text-white">CALABOUÇO 2026</span>
+                    <span class="block text-[8px] sm:text-xs uppercase tracking-widest text-violet-400 font-extrabold">CrossFit Leões</span>
+                    <span class="text-xs sm:text-lg font-black tracking-wider text-white">CALABOUÇO GAMES 2026</span>
                 </div>
             </div>
-            <nav class="hidden md:flex items-center space-x-6 text-xs sm:text-sm font-semibold tracking-wider uppercase text-gray-300">
-                <a href="#inicio" onclick="scrollToSection(event, 'inicio')" class="hover:text-amber-400 transition cursor-pointer">Início</a>
-                <a href="#sobre" onclick="scrollToSection(event, 'sobre')" class="hover:text-amber-400 transition cursor-pointer">O Evento</a>
-                <a href="#ranking" onclick="scrollToSection(event, 'ranking')" class="hover:text-amber-400 transition cursor-pointer">Ranking Oficial</a>
-                <button onclick="toggleAdminModal()" class="bg-zinc-800 hover:bg-zinc-700 text-amber-400 border border-amber-400/30 px-3 py-1.5 rounded-lg font-bold transition flex items-center space-x-2 text-xs cursor-pointer">
-                    <span>🔒 Área Admin</span>
-                </button>
-            </nav>
-            <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden text-gray-300 hover:text-white focus:outline-none p-2 cursor-pointer">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            <button onclick="toggleAdminModal()" class="bg-zinc-800 hover:bg-zinc-700 text-violet-300 border border-violet-400/30 px-3 py-1.5 rounded-lg font-bold transition flex items-center space-x-2 text-xs cursor-pointer">
+                <span>🔒 Área Admin</span>
             </button>
-        </div>
-        <!-- Menu Mobile -->
-        <div id="mobile-menu" class="hidden md:hidden bg-cardbg border-b border-white/10 px-4 pt-3 pb-5 space-y-3 w-full">
-            <a href="#inicio" onclick="scrollToSection(event, 'inicio'); toggleMobileMenu();" class="block text-xs font-semibold uppercase text-gray-300 hover:text-amber-400 cursor-pointer py-1">Início</a>
-            <a href="#sobre" onclick="scrollToSection(event, 'sobre'); toggleMobileMenu();" class="block text-xs font-semibold uppercase text-gray-300 hover:text-amber-400 cursor-pointer py-1">O Evento</a>
-            <a href="#ranking" onclick="scrollToSection(event, 'ranking'); toggleMobileMenu();" class="block text-xs font-semibold uppercase text-gray-300 hover:text-amber-400 cursor-pointer py-1">Ranking Oficial</a>
-            <button onclick="toggleMobileMenu(); toggleAdminModal();" class="w-full text-left text-xs font-semibold uppercase text-amber-400 py-2 cursor-pointer">🔒 Área Admin (Planilha)</button>
         </div>
     </header>
 
     <main class="w-full">
-        <section id="inicio" class="relative py-12 sm:py-20 flex items-center justify-center hero-industrial px-4 w-full">
-            <div class="relative w-full max-w-4xl mx-auto text-center space-y-6 z-10">
-                <div class="inline-flex items-center space-x-2 bg-amber-500/10 border border-amber-500/30 px-3 py-1.5 rounded-full text-amber-400 text-[10px] sm:text-xs font-bold uppercase tracking-widest">
-                    <span>⚔️ 2ª Edição Oficial • Sábado, 12/09/2026</span>
-                </div>
-                <h1 class="text-2xl sm:text-5xl font-black uppercase tracking-tight text-white leading-tight">
-                    Calabouço <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-yellow-200 to-amber-600">Games 2026</span>
-                </h1>
-                <p class="max-w-2xl mx-auto text-xs sm:text-base text-gray-400 font-medium leading-relaxed px-2">
-                    O campeonato interno de CrossFit da CrossFit Leões em Itatiba. Experiência de competição de alto nível com 5 divisões oficiais.
-                </p>
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2 w-full px-4">
-                    <button onclick="scrollToSection(event, 'ranking')" class="w-full sm:w-auto bg-amber-500 hover:bg-amber-400 text-black font-extrabold px-6 py-3 rounded-xl uppercase tracking-wider transition shadow-xl text-xs sm:text-sm text-center cursor-pointer">
-                        Ver Ranking Oficial
-                    </button>
-                    <button onclick="scrollToSection(event, 'sobre')" class="w-full sm:w-auto bg-cardbg hover:bg-zinc-800 border border-white/10 text-white font-extrabold px-6 py-3 rounded-xl uppercase tracking-wider transition text-xs sm:text-sm text-center cursor-pointer">
-                        Detalhes do Evento
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <section id="sobre" class="py-12 sm:py-16 w-full max-w-5xl mx-auto px-4">
-            <div class="bg-cardbg rounded-2xl card-border p-6 sm:p-10 shadow-xl grid grid-cols-1 md:grid-cols-2 gap-8 items-center w-full">
-                <div class="space-y-4">
-                    <span class="text-[10px] sm:text-xs uppercase tracking-widest text-amber-400 font-extrabold">CrossFit Leões • Itatiba</span>
-                    <h2 class="text-base sm:text-2xl font-black uppercase text-white leading-snug">
-                        Está oficialmente confirmada a SEGUNDA edição do nosso campeonato interno de CrossFit, o CALABOUÇO GAMES 2026!
-                    </h2>
-                    <p class="text-gray-300 text-xs sm:text-sm leading-relaxed">
-                        Após o sucesso da primeira edição, voltamos para uma nova rodada com a mesma energia e qualidade. Oportunidade perfeita para vivenciar a emoção de competir em nossa cidade.
-                    </p>
-                    <div class="grid grid-cols-2 gap-3 pt-2">
-                        <div class="bg-darkbg p-3 rounded-xl border border-white/5">
-                            <span class="block text-amber-400 text-[9px] sm:text-[10px] font-bold uppercase">Data</span>
-                            <span class="text-white font-bold text-xs sm:text-sm">12/09/2026</span>
-                        </div>
-                        <div class="bg-darkbg p-3 rounded-xl border border-white/5">
-                            <span class="block text-amber-400 text-[9px] sm:text-[10px] font-bold uppercase">Kit Atleta</span>
-                            <span class="text-white font-bold text-xs sm:text-sm">Medalha & Camiseta</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="space-y-4 bg-darkbg p-6 rounded-xl border border-white/10">
-                    <h3 class="text-sm sm:text-lg font-black uppercase text-amber-400 tracking-wider">Atrações Oficiais</h3>
-                    <ul class="space-y-3 text-xs sm:text-sm text-gray-300">
-                        <li class="flex items-start space-x-3">
-                            <span class="text-amber-400 font-bold">🎤</span>
-                            <div>
-                                <strong class="text-white block">Narração Oficial</strong>
-                                <span class="text-gray-400 text-[11px]">Locutor TCB e Copa Sur @caueraminelli</span>
-                            </div>
-                        </li>
-                        <li class="flex items-start space-x-3">
-                            <span class="text-amber-400 font-bold">🏆</span>
-                            <div>
-                                <strong class="text-white block">Troféus Exclusivos</strong>
-                                <span class="text-gray-400 text-[11px]">Para os primeiros colocados de todas as categorias.</span>
-                            </div>
-                        </li>
-                        <li class="flex items-start space-x-3">
-                            <span class="text-amber-400 font-bold">❤️</span>
-                            <div>
-                                <strong class="text-white block">Apoio Institucional</strong>
-                                <span class="text-gray-400 text-[11px]">Secretaria de Esportes de Itatiba</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="ranking" class="py-12 sm:py-16 bg-cardbg/30 border-y border-white/10 w-full">
+        <section id="ranking" class="py-10 sm:py-16 bg-darkbg w-full">
             <div class="w-full max-w-5xl mx-auto px-4">
+                <div class="text-center max-w-2xl mx-auto mb-8 space-y-2 hero-industrial rounded-2xl py-6">
+                    <span class="inline-flex items-center space-x-2 bg-violet-500/10 border border-violet-500/30 px-3 py-1.5 rounded-full text-violet-300 text-[10px] sm:text-xs font-bold uppercase tracking-widest">
+                        ⚔️ 2ª Edição Oficial • Sábado, 26/09/2026
+                    </span>
+                    <h2 class="text-[10px] sm:text-xs uppercase tracking-widest text-violet-400 font-extrabold mb-1">Classificação Geral</h2>
+                    <h3 class="text-xl sm:text-3xl font-black uppercase text-white">Ranking dos Atletas</h3>
+                </div>
+
                 <div class="flex flex-col md:flex-row md:items-end justify-between mb-6 gap-4">
-                    <div>
-                        <h2 class="text-[10px] sm:text-xs uppercase tracking-widest text-amber-400 font-extrabold mb-1">Classificação Geral</h2>
-                        <h3 class="text-lg sm:text-3xl font-black uppercase text-white">Ranking dos Atletas</h3>
-                    </div>
                     <!-- Filtros por Categoria -->
                     <div class="flex flex-wrap items-center gap-1.5">
-                        <button onclick="filterCategory('Todos')" id="btn-cat-Todos" class="cat-btn bg-amber-500 text-black px-2.5 py-1.5 rounded-lg text-[10px] sm:text-xs font-bold uppercase transition cursor-pointer">Todos</button>
+                        <button onclick="filterCategory('Todos')" id="btn-cat-Todos" class="cat-btn bg-violet-500 text-white px-2.5 py-1.5 rounded-lg text-[10px] sm:text-xs font-bold uppercase transition cursor-pointer">Todos</button>
                         <button onclick="filterCategory('Iniciante Feminino')" id="btn-cat-Iniciante Feminino" class="cat-btn bg-zinc-800 text-gray-300 hover:text-white px-2.5 py-1.5 rounded-lg text-[10px] sm:text-xs font-bold uppercase transition cursor-pointer">Iniciante Fem</button>
                         <button onclick="filterCategory('Scale Feminino')" id="btn-cat-Scale Feminino" class="cat-btn bg-zinc-800 text-gray-300 hover:text-white px-2.5 py-1.5 rounded-lg text-[10px] sm:text-xs font-bold uppercase transition cursor-pointer">Scale Fem</button>
                         <button onclick="filterCategory('Scale Masculino')" id="btn-cat-Scale Masculino" class="cat-btn bg-zinc-800 text-gray-300 hover:text-white px-2.5 py-1.5 rounded-lg text-[10px] sm:text-xs font-bold uppercase transition cursor-pointer">Scale Masc</button>
@@ -177,11 +95,11 @@
                 <!-- Barra de pesquisa e contagem -->
                 <div class="flex flex-col sm:flex-row items-center justify-between gap-3 mb-4">
                     <div class="w-full sm:w-72">
-                        <input type="text" id="searchInput" oninput="renderRanking()" placeholder="Buscar atleta ou box..." class="w-full bg-darkbg border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 transition">
+                        <input type="text" id="searchInput" oninput="renderRanking()" placeholder="Buscar atleta ou box..." class="w-full bg-cardbg border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-violet-400 transition">
                     </div>
                     <div class="text-xs text-gray-400 font-medium flex items-center space-x-2">
-                        <span>Mostrando <span id="athleteCount" class="text-amber-400 font-bold">0</span> atletas</span>
-                        <span id="adminBadge" class="hidden bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded font-bold text-[9px] uppercase border border-amber-500/30">Admin Ativo</span>
+                        <span>Mostrando <span id="athleteCount" class="text-violet-300 font-bold">0</span> atletas</span>
+                        <span id="adminBadge" class="hidden bg-violet-500/20 text-violet-300 px-2 py-0.5 rounded font-bold text-[9px] uppercase border border-violet-500/30">Admin Ativo</span>
                     </div>
                 </div>
 
@@ -190,7 +108,7 @@
                     <div class="overflow-x-auto w-full" style="-webkit-overflow-scrolling: touch;">
                         <table class="w-full text-left border-collapse min-w-[600px]">
                             <thead>
-                                <tr class="bg-zinc-900 border-b border-white/10 text-[10px] sm:text-xs font-bold uppercase text-amber-400 tracking-wider">
+                                <tr class="bg-zinc-900 border-b border-white/10 text-[10px] sm:text-xs font-bold uppercase text-violet-300 tracking-wider">
                                     <th class="py-3 px-3">Pos</th>
                                     <th class="py-3 px-3">Atleta</th>
                                     <th class="py-3 px-3">Box / Equipe</th>
@@ -210,25 +128,25 @@
             </div>
         </section>
 
-        <section id="planilhaAdminSection" class="hidden py-12 sm:py-16 w-full max-w-5xl mx-auto px-4 border-t border-amber-500/20 bg-amber-500/5">
-            <div class="bg-gradient-to-br from-cardbg to-zinc-900 rounded-2xl border border-amber-500/40 p-6 sm:p-10 shadow-xl relative w-full">
+        <section id="planilhaAdminSection" class="hidden py-12 sm:py-16 w-full max-w-5xl mx-auto px-4 border-t border-violet-500/20 bg-violet-500/5">
+            <div class="bg-gradient-to-br from-cardbg to-zinc-900 rounded-2xl border border-violet-500/40 p-6 sm:p-10 shadow-xl relative w-full">
                 <div class="absolute top-4 right-4">
                     <button onclick="logoutAdmin()" class="bg-zinc-800 hover:bg-zinc-700 text-gray-300 text-[10px] font-bold px-2.5 py-1 rounded-lg border border-white/10 transition cursor-pointer">
                         Fechar Painel Admin
                     </button>
                 </div>
                 <div class="max-w-2xl mx-auto text-center space-y-4">
-                    <span class="inline-block bg-amber-500/20 border border-amber-500/40 text-amber-400 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">
+                    <span class="inline-block bg-violet-500/20 border border-violet-500/40 text-violet-300 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">
                         🔓 Área Restrita do Administrador
                     </span>
                     <h3 class="text-lg sm:text-2xl font-black uppercase text-white">Gerenciamento de Notas via Excel / CSV</h3>
                     <p class="text-gray-400 text-xs leading-relaxed">
-                        Arraste e solte o arquivo do Excel (<code class="text-amber-400">.xlsx</code>, <code class="text-amber-400">.xls</code>) ou CSV para atualizar instantaneamente o ranking do Calabouço 2026.
+                        Arraste e solte o arquivo do Excel (<code class="text-violet-300">.xlsx</code>, <code class="text-violet-300">.xls</code>) ou CSV para atualizar instantaneamente o ranking do Calabouço Games 2026.
                     </p>
 
                     <!-- Zona de Drop -->
-                    <div id="dropZone" onclick="document.getElementById('excelFile').click()" class="border-2 border-dashed border-amber-500/40 hover:border-amber-400 rounded-xl p-6 transition bg-darkbg/50 cursor-pointer flex flex-col items-center justify-center space-y-2 w-full">
-                        <svg class="w-8 h-8 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                    <div id="dropZone" onclick="document.getElementById('excelFile').click()" class="border-2 border-dashed border-violet-500/40 hover:border-violet-400 rounded-xl p-6 transition bg-darkbg/50 cursor-pointer flex flex-col items-center justify-center space-y-2 w-full">
+                        <svg class="w-8 h-8 text-violet-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
                         <div>
                             <p class="text-xs font-bold text-white">Clique para selecionar ou arraste o arquivo aqui</p>
                             <p class="text-[10px] text-gray-500 mt-0.5">Formatos aceitos: .xlsx, .xls, .csv</p>
@@ -237,7 +155,7 @@
                     </div>
 
                     <div class="pt-2 flex items-center justify-center gap-3 text-xs">
-                        <button onclick="downloadTemplate()" class="text-amber-400 hover:underline font-semibold cursor-pointer">
+                        <button onclick="downloadTemplate()" class="text-violet-300 hover:underline font-semibold cursor-pointer">
                             ⬇️ Baixar Planilha Modelo
                         </button>
                         <span class="text-gray-600">•</span>
@@ -250,29 +168,36 @@
         </section>
     </main>
 
+    <footer class="bg-darkbg border-t border-white/10 py-8 text-center text-xs text-gray-500 w-full">
+        <div class="max-w-5xl mx-auto px-4 space-y-2">
+            <p class="font-bold text-gray-400 uppercase tracking-wider">Calabouço Games 2026 • CrossFit Leões Itatiba</p>
+            <p>Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
     <div id="adminModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center px-4 w-full h-full">
         <div class="bg-cardbg border border-white/10 rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl relative">
             <button onclick="toggleAdminModal()" class="absolute top-3 right-3 text-gray-400 hover:text-white text-lg font-bold cursor-pointer">&times;</button>
             <div class="space-y-1 text-center">
-                <span class="text-amber-400 font-extrabold text-[10px] uppercase tracking-widest">Painel Administrativo</span>
+                <span class="text-violet-300 font-extrabold text-[10px] uppercase tracking-widest">Painel Administrativo</span>
                 <h3 class="text-lg font-black uppercase text-white">Acesso Restrito</h3>
+                <p class="text-gray-400 text-[11px]">Insira a senha de administrador (<code class="text-violet-300">leoes2026</code>) para gerenciar as notas.</p>
             </div>
             <div class="space-y-3">
-                <input type="password" id="adminPasswordInput" placeholder="Senha de acesso" onkeydown="if(event.key==='Enter') verifyAdminPassword()" class="w-full bg-darkbg border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 transition">
-                <button onclick="verifyAdminPassword()" class="w-full bg-amber-500 hover:bg-amber-400 text-black font-extrabold py-2.5 rounded-xl uppercase tracking-wider text-xs transition cursor-pointer">
+                <input type="password" id="adminPasswordInput" placeholder="Senha de acesso" onkeydown="if(event.key==='Enter') verifyAdminPassword()" class="w-full bg-darkbg border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-violet-400 transition">
+                <button onclick="verifyAdminPassword()" class="w-full bg-violet-500 hover:bg-violet-400 text-white font-extrabold py-2.5 rounded-xl uppercase tracking-wider text-xs transition cursor-pointer">
                     Entrar no Painel
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Modal de Mensagens Customizado (Substitui alert) -->
     <div id="messageModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center px-4 w-full h-full">
         <div class="bg-cardbg border border-white/10 rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl text-center">
             <div id="msgIcon" class="text-2xl">⚠️</div>
             <h3 id="msgTitle" class="text-base font-black uppercase text-white">Aviso</h3>
             <p id="msgBody" class="text-gray-300 text-xs leading-relaxed">Mensagem do sistema.</p>
-            <button onclick="closeMessageModal()" class="w-full bg-amber-500 hover:bg-amber-400 text-black font-extrabold py-2.5 rounded-xl uppercase tracking-wider text-xs transition cursor-pointer">
+            <button onclick="closeMessageModal()" class="w-full bg-violet-500 hover:bg-violet-400 text-white font-extrabold py-2.5 rounded-xl uppercase tracking-wider text-xs transition cursor-pointer">
                 Entendido
             </button>
         </div>
@@ -300,21 +225,15 @@
 
         // Carrega dados do localStorage ou usa o padrão
         function getAthletesData() {
-            const saved = localStorage.getItem('calabouco_atletas_2026');
-            if (saved) {
-                try { return JSON.parse(saved); } catch(e) { return defaultAthletes; }
-            }
+            try {
+                const saved = localStorage.getItem('calabouco_atletas_2026');
+                if (saved) return JSON.parse(saved);
+            } catch(e) {}
             return defaultAthletes;
         }
 
         function saveAthletesData(data) {
-            localStorage.setItem('calabouco_atletas_2026', JSON.stringify(data));
-        }
-
-        function resetToDefaultData() {
-            localStorage.removeItem('calabouco_atletas_2026');
-            renderRanking();
-            showMessage('Restaurado', 'Os dados foram restaurados para o padrão.', '↺');
+            try { localStorage.setItem('calabouco_atletas_2026', JSON.stringify(data)); } catch(e) {}
         }
 
         // Sistema de mensagens customizadas (substitui alert)
@@ -327,21 +246,6 @@
 
         function closeMessageModal() {
             document.getElementById('messageModal').classList.add('hidden');
-        }
-
-        // Navegação suave
-        function scrollToSection(event, sectionId) {
-            event.preventDefault();
-            const el = document.getElementById(sectionId);
-            if (el) {
-                el.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-
-        // Toggle do Menu Mobile
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
         }
 
         // Toggle do Modal Admin
@@ -381,13 +285,13 @@
         function filterCategory(cat) {
             currentCategory = cat;
             document.querySelectorAll('.cat-btn').forEach(btn => {
-                btn.classList.remove('bg-amber-500', 'text-black');
+                btn.classList.remove('bg-violet-500', 'text-white');
                 btn.classList.add('bg-zinc-800', 'text-gray-300');
             });
             const activeBtn = document.getElementById('btn-cat-' + cat);
             if (activeBtn) {
                 activeBtn.classList.remove('bg-zinc-800', 'text-gray-300');
-                activeBtn.classList.add('bg-amber-500', 'text-black');
+                activeBtn.classList.add('bg-violet-500', 'text-white');
             }
             renderRanking();
         }
@@ -397,17 +301,20 @@
             let athletes = getAthletesData();
             const search = document.getElementById('searchInput').value.toLowerCase();
 
+            // Filtrar por categoria
             if (currentCategory !== 'Todos') {
                 athletes = athletes.filter(a => a.categoria.toLowerCase() === currentCategory.toLowerCase());
             }
 
+            // Filtrar por busca (nome ou box)
             if (search) {
-                athletes = athletes.filter(a => 
-                    a.nome.toLowerCase().includes(search) || 
+                athletes = athletes.filter(a =>
+                    a.nome.toLowerCase().includes(search) ||
                     a.box.toLowerCase().includes(search)
                 );
             }
 
+            // Ordenar por pontos (menor pontuação é melhor no CrossFit)
             athletes.sort((a, b) => {
                 if (a.pontos !== b.pontos) return a.pontos - b.pontos;
                 return a.nome.localeCompare(b.nome);
@@ -425,9 +332,9 @@
             athletes.forEach((atleta, index) => {
                 let badgeClass = 'text-gray-400 font-bold';
                 let rowBg = '';
-                if (index === 0) { badgeClass = 'text-amber-400 font-black text-sm'; rowBg = 'bg-amber-500/5'; }
+                if (index === 0) { badgeClass = 'text-violet-300 font-black text-sm'; rowBg = 'bg-violet-500/5'; }
                 else if (index === 1) { badgeClass = 'text-gray-200 font-bold'; }
-                else if (index === 2) { badgeClass = 'text-amber-600 font-bold'; }
+                else if (index === 2) { badgeClass = 'text-violet-500 font-bold'; }
 
                 const tr = document.createElement('tr');
                 tr.className = `hover:bg-zinc-800/50 transition border-b border-white/5 ${rowBg}`;
@@ -439,7 +346,7 @@
                     <td class="py-3 px-3 text-center text-gray-300 font-mono">${atleta.wod1}</td>
                     <td class="py-3 px-3 text-center text-gray-300 font-mono">${atleta.wod2}</td>
                     <td class="py-3 px-3 text-center text-gray-300 font-mono">${atleta.wod3}</td>
-                    <td class="py-3 px-3 text-right font-black text-amber-400 font-mono">${atleta.pontos}</td>
+                    <td class="py-3 px-3 text-right font-black text-violet-300 font-mono">${atleta.pontos}</td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -468,6 +375,7 @@
                         return;
                     }
 
+                    // Normalizar dados da planilha
                     const newAthletes = json.map((row, idx) => {
                         return {
                             id: idx + 1,
@@ -504,8 +412,16 @@
             XLSX.writeFile(wb, "Modelo_Ranking_Calabouço_2026.xlsx");
         }
 
+        function resetToDefaultData() {
+            try { localStorage.removeItem('calabouco_atletas_2026'); } catch(e) {}
+            renderRanking();
+            showMessage('Restaurado', 'Os dados padrão do torneio foram restaurados.', '🔄');
+        }
+
         // Inicialização
-        document.addEventListener('DOMContentLoaded', renderRanking);
+        window.onload = function() {
+            renderRanking();
+        }
     </script>
 </body>
 </html>
