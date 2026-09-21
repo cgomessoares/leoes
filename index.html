@@ -56,7 +56,7 @@
 <body class="antialiased selection:bg-violet-500 selection:text-white w-full overflow-x-hidden">
 
     <header class="sticky top-0 z-50 bg-darkbg/95 backdrop-blur-md border-b border-white/15 w-full">
-        <div class="w-full max-w-6xl mx-auto px-3 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
+        <div class="w-full max-w-7xl mx-auto px-3 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
             <div class="flex items-center space-x-2 sm:space-x-3">
                 <div>
                     <span class="block text-[8px] sm:text-xs uppercase tracking-widest text-violet-400 font-extrabold">CrossFit Leões</span>
@@ -71,7 +71,7 @@
 
     <main class="w-full">
         <section id="ranking" class="py-10 sm:py-16 bg-darkbg w-full">
-            <div class="w-full max-w-5xl mx-auto px-4">
+            <div class="w-full max-w-7xl mx-auto px-4">
                 <div class="text-center max-w-2xl mx-auto mb-8 space-y-2 hero-industrial rounded-2xl py-6">
                     <span class="inline-flex items-center space-x-2 bg-violet-500/10 border border-violet-500/30 px-3 py-1.5 rounded-full text-violet-300 text-[10px] sm:text-xs font-bold uppercase tracking-widest">
                         ⚔️ 2ª Edição Oficial • Sábado, 26/09/2026
@@ -106,16 +106,20 @@
                 <!-- Tabela responsiva com scroll horizontal otimizado -->
                 <div class="bg-cardbg rounded-xl card-border overflow-hidden shadow-xl w-full">
                     <div class="overflow-x-auto w-full" style="-webkit-overflow-scrolling: touch;">
-                        <table class="w-full text-left border-collapse min-w-[600px]">
+                        <table class="w-full text-left border-collapse min-w-[800px]">
                             <thead>
                                 <tr class="bg-zinc-900 border-b border-white/10 text-[10px] sm:text-xs font-bold uppercase text-violet-300 tracking-wider">
                                     <th class="py-3 px-3">Pos</th>
                                     <th class="py-3 px-3">Atleta</th>
                                     <th class="py-3 px-3">Box / Equipe</th>
                                     <th class="py-3 px-3">Categoria</th>
-                                    <th class="py-3 px-3 text-center">WOD 1</th>
-                                    <th class="py-3 px-3 text-center">WOD 2</th>
-                                    <th class="py-3 px-3 text-center">WOD 3</th>
+                                    <th class="py-3 px-2 text-center">WOD 1</th>
+                                    <th class="py-3 px-2 text-center">WOD 2</th>
+                                    <th class="py-3 px-2 text-center">WOD 3</th>
+                                    <th class="py-3 px-2 text-center">WOD 4</th>
+                                    <th class="py-3 px-2 text-center">WOD 5</th>
+                                    <th class="py-3 px-2 text-center">WOD 6</th>
+                                    <th class="py-3 px-2 text-center">WOD 7</th>
                                     <th class="py-3 px-3 text-right">Pontos</th>
                                 </tr>
                             </thead>
@@ -169,7 +173,7 @@
     </main>
 
     <footer class="bg-darkbg border-t border-white/10 py-8 text-center text-xs text-gray-500 w-full">
-        <div class="max-w-5xl mx-auto px-4 space-y-2">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
             <p class="font-bold text-gray-400 uppercase tracking-wider">Calabouço Games 2026 • CrossFit Leões Itatiba</p>
             <p>Todos os direitos reservados.</p>
         </div>
@@ -181,7 +185,7 @@
             <div class="space-y-1 text-center">
                 <span class="text-violet-300 font-extrabold text-[10px] uppercase tracking-widest">Painel Administrativo</span>
                 <h3 class="text-lg font-black uppercase text-white">Acesso Restrito</h3>
-                <p class="text-gray-400 text-[11px]">Insira a senha de administrador (<code class="text-violet-300">leoes2026</code>) para gerenciar as notas.</p>
+                <p class="text-gray-400 text-[11px]">Insira a senha de administrador para gerenciar as notas.</p>
             </div>
             <div class="space-y-3">
                 <input type="password" id="adminPasswordInput" placeholder="Senha de acesso" onkeydown="if(event.key==='Enter') verifyAdminPassword()" class="w-full bg-darkbg border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-violet-400 transition">
@@ -204,26 +208,25 @@
     </div>
 
     <script>
-        // Dados padrão iniciais dos atletas do Calabouço 2026
+        // Dados padrão iniciais dos atletas do Calabouço 2026 (com 7 WODs)
         const defaultAthletes = [
-            { id: 1, nome: "Lucas Silva", box: "CrossFit Leões", categoria: "RX Masculino", wod1: 1, wod2: 2, wod3: 1, pontos: 4 },
-            { id: 2, nome: "Matheus Oliveira", box: "CF Itatiba", categoria: "RX Masculino", wod1: 2, wod2: 1, wod3: 3, pontos: 6 },
-            { id: 3, nome: "Gabriel Santos", box: "CrossFit Leões", categoria: "RX Masculino", wod1: 3, wod2: 3, wod3: 2, pontos: 8 },
-            { id: 4, nome: "Camila Souza", box: "CrossFit Leões", categoria: "RX Feminino", wod1: 1, wod2: 1, wod3: 2, pontos: 4 },
-            { id: 5, nome: "Ana Paula Lima", box: "CF Jundiaí", categoria: "RX Feminino", wod1: 2, wod2: 2, wod3: 1, pontos: 5 },
-            { id: 6, nome: "Rafael Costa", box: "CrossFit Leões", categoria: "Scale Masculino", wod1: 1, wod2: 3, wod3: 2, pontos: 6 },
-            { id: 7, nome: "Bruno Ramos", box: "CF Campinas", categoria: "Scale Masculino", wod1: 2, wod2: 1, wod3: 4, pontos: 7 },
-            { id: 8, nome: "Thiago Mendes", box: "CrossFit Leões", categoria: "Scale Masculino", wod1: 4, wod2: 2, wod3: 1, pontos: 7 },
-            { id: 9, nome: "Juliana Rocha", box: "CF Itatiba", categoria: "Scale Feminino", wod1: 1, wod2: 1, wod3: 1, pontos: 3 },
-            { id: 10, nome: "Beatriz Martins", box: "CrossFit Leões", categoria: "Scale Feminino", wod1: 2, wod2: 3, wod3: 2, pontos: 7 },
-            { id: 11, nome: "Carlos Eduardo", box: "CrossFit Leões", categoria: "Iniciante Feminino", wod1: 1, wod2: 2, wod3: 1, pontos: 4 },
-            { id: 12, nome: "Mariana Dias", box: "CF Atibaia", categoria: "Iniciante Feminino", wod1: 2, wod2: 1, wod3: 3, pontos: 6 }
+            { id: 1, nome: "Lucas Silva", box: "CrossFit Leões", categoria: "RX Masculino", wod1: 85, wod2: 90, wod3: 75, wod4: 80, wod5: 95, wod6: 88, wod7: 92, pontos: 605 },
+            { id: 2, nome: "Matheus Oliveira", box: "CF Itatiba", categoria: "RX Masculino", wod1: 80, wod2: 85, wod3: 80, wod4: 85, wod5: 90, wod6: 85, wod7: 88, pontos: 593 },
+            { id: 3, nome: "Gabriel Santos", box: "CrossFit Leões", categoria: "RX Masculino", wod1: 70, wod2: 75, wod3: 70, wod4: 75, wod5: 80, wod6: 78, wod7: 82, pontos: 530 },
+            { id: 4, nome: "Camila Souza", box: "CrossFit Leões", categoria: "RX Feminino", wod1: 90, wod2: 88, wod3: 92, wod4: 85, wod5: 90, wod6: 94, wod7: 89, pontos: 628 },
+            { id: 5, nome: "Ana Paula Lima", box: "CF Jundiaí", categoria: "RX Feminino", wod1: 85, wod2: 85, wod3: 80, wod4: 90, wod5: 88, wod6: 85, wod7: 90, pontos: 603 },
+            { id: 6, nome: "Rafael Costa", box: "CrossFit Leões", categoria: "Scale Masculino", wod1: 75, wod2: 70, wod3: 80, wod4: 75, wod5: 70, wod6: 82, wod7: 78, expr: 6, pontos: 530 },
+            { id: 7, nome: "Bruno Ramos", box: "CF Campinas", categoria: "Scale Masculino", wod1: 65, wod2: 70, wod3: 75, wod4: 70, wod5: 80, wod6: 75, wod7: 70, pontos: 505 },
+            { id: 8, nome: "Thiago Mendes", box: "CrossFit Leões", categoria: "Scale Masculino", wod1: 60, wod2: 65, wod3: 70, wod4: 65, wod5: 75, wod6: 70, wod7: 75, pontos: 480 },
+            { id: 9, nome: "Juliana Rocha", box: "CF Itatiba", categoria: "Scale Feminino", wod1: 95, wod2: 90, wod3: 88, wod4: 92, wod5: 90, wod6: 95, wod7: 92, pontos: 642 },
+            { id: 10, nome: "Beatriz Martins", box: "CrossFit Leões", categoria: "Scale Feminino", wod1: 80, wod2: 82, wod3: 85, wod4: 80, wod5: 85, wod6: 88, wod7: 84, points: 584 },
+            { id: 11, nome: "Carlos Eduardo", box: "CrossFit Leões", categoria: "Iniciante Feminino", wod1: 90, wod2: 85, wod3: 90, wod4: 88, wod5: 92, wod6: 85, wod7: 90, pontos: 620 },
+            { id: 12, nome: "Mariana Dias", box: "CF Atibaia", categoria: "Iniciante Feminino", wod1: 85, wod2: 80, wod3: 85, wod4: 82, wod5: 80, wod6: 88, wod7: 85, pontos: 585 }
         ];
 
         let currentCategory = 'Todos';
         let isAdminLoggedIn = false;
 
-        // Carrega dados do localStorage ou usa o padrão
         function getAthletesData() {
             try {
                 const saved = localStorage.getItem('calabouco_atletas_2026');
@@ -236,7 +239,6 @@
             try { localStorage.setItem('calabouco_atletas_2026', JSON.stringify(data)); } catch(e) {}
         }
 
-        // Sistema de mensagens customizadas (substitui alert)
         function showMessage(title, text, icon = '⚠️') {
             document.getElementById('msgTitle').innerText = title;
             document.getElementById('msgBody').innerText = text;
@@ -248,7 +250,6 @@
             document.getElementById('messageModal').classList.add('hidden');
         }
 
-        // Toggle do Modal Admin
         function toggleAdminModal() {
             const modal = document.getElementById('adminModal');
             modal.classList.toggle('hidden');
@@ -258,7 +259,6 @@
             }
         }
 
-        // Verificar senha admin
         function verifyAdminPassword() {
             const pass = document.getElementById('adminPasswordInput').value;
             if (pass === 'leoes2026') {
@@ -281,7 +281,6 @@
             showMessage('Sessão Encerrada', 'Você saiu do modo administrador.', '🔒');
         }
 
-        // Filtro por categoria
         function filterCategory(cat) {
             currentCategory = cat;
             document.querySelectorAll('.cat-btn').forEach(btn => {
@@ -296,17 +295,14 @@
             renderRanking();
         }
 
-        // Renderizar a tabela do ranking
         function renderRanking() {
             let athletes = getAthletesData();
             const search = document.getElementById('searchInput').value.toLowerCase();
 
-            // Filtrar por categoria
             if (currentCategory !== 'Todos') {
                 athletes = athletes.filter(a => a.categoria.toLowerCase() === currentCategory.toLowerCase());
             }
 
-            // Filtrar por busca (nome ou box)
             if (search) {
                 athletes = athletes.filter(a =>
                     a.nome.toLowerCase().includes(search) ||
@@ -314,9 +310,9 @@
                 );
             }
 
-            // Ordenar por pontos (menor pontuação é melhor no CrossFit)
+            // Ordenação alterada: maior pontuação primeiro (descrescente)
             athletes.sort((a, b) => {
-                if (a.pontos !== b.pontos) return a.pontos - b.pontos;
+                if (b.pontos !== a.pontos) return b.pontos - a.pontos;
                 return a.nome.localeCompare(b.nome);
             });
 
@@ -325,7 +321,7 @@
             document.getElementById('athleteCount').innerText = athletes.length;
 
             if (athletes.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="8" class="text-center py-8 text-gray-500 text-xs">Nenhum atleta encontrado nesta categoria.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="12" class="text-center py-8 text-gray-500 text-xs">Nenhum atleta encontrado nesta categoria.</td></tr>`;
                 return;
             }
 
@@ -343,10 +339,14 @@
                     <td class="py-3 px-3 font-bold text-white">${escapeHtml(atleta.nome)}</td>
                     <td class="py-3 px-3 text-gray-400">${escapeHtml(atleta.box)}</td>
                     <td class="py-3 px-3"><span class="bg-zinc-800 text-gray-300 px-2 py-0.5 rounded text-[10px] font-semibold">${escapeHtml(atleta.categoria)}</span></td>
-                    <td class="py-3 px-3 text-center text-gray-300 font-mono">${atleta.wod1}</td>
-                    <td class="py-3 px-3 text-center text-gray-300 font-mono">${atleta.wod2}</td>
-                    <td class="py-3 px-3 text-center text-gray-300 font-mono">${atleta.wod3}</td>
-                    <td class="py-3 px-3 text-right font-black text-violet-300 font-mono">${atleta.pontos}</td>
+                    <td class="py-3 px-2 text-center text-gray-300 font-mono">${atleta.wod1 || 0}</td>
+                    <td class="py-3 px-2 text-center text-gray-300 font-mono">${atleta.wod2 || 0}</td>
+                    <td class="py-3 px-2 text-center text-gray-300 font-mono">${atleta.wod3 || 0}</td>
+                    <td class="py-3 px-2 text-center text-gray-300 font-mono">${atleta.wod4 || 0}</td>
+                    <td class="py-3 px-2 text-center text-gray-300 font-mono">${atleta.wod5 || 0}</td>
+                    <td class="py-3 px-2 text-center text-gray-300 font-mono">${atleta.wod6 || 0}</td>
+                    <td class="py-3 px-2 text-center text-gray-300 font-mono">${atleta.wod7 || 0}</td>
+                    <td class="py-3 px-3 text-right font-black text-violet-300 font-mono">${atleta.pontos || 0}</td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -356,7 +356,6 @@
             return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
         }
 
-        // Gerenciamento de Upload de Planilhas (Excel / CSV)
         function handleFileSelect(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -375,17 +374,20 @@
                         return;
                     }
 
-                    // Normalizar dados da planilha
                     const newAthletes = json.map((row, idx) => {
                         return {
                             id: idx + 1,
                             nome: row.Nome || row.Atleta || row.nome || 'Atleta ' + (idx + 1),
                             box: row.Box || row.Equipe || row.box || 'CrossFit Leões',
                             categoria: row.Categoria || row.categoria || 'Scale Masculino',
-                            wod1: parseInt(row.WOD1 || row.wod1 || 1) || 1,
-                            wod2: parseInt(row.WOD2 || row.wod2 || 1) || 1,
-                            wod3: parseInt(row.WOD3 || row.wod3 || 1) || 1,
-                            pontos: parseInt(row.Pontos || row.pontos || 3) || 3
+                            wod1: parseInt(row.WOD1 || row.wod1 || 0) || 0,
+                            wod2: parseInt(row.WOD2 || row.wod2 || 0) || 0,
+                            wod3: parseInt(row.WOD3 || row.wod3 || 0) || 0,
+                            wod4: parseInt(row.WOD4 || row.wod4 || 0) || 0,
+                            wod5: parseInt(row.WOD5 || row.wod5 || 0) || 0,
+                            wod6: parseInt(row.WOD6 || row.wod6 || 0) || 0,
+                            wod7: parseInt(row.WOD7 || row.wod7 || 0) || 0,
+                            pontos: parseInt(row.Pontos || row.pontos || 0) || 0
                         };
                     });
 
@@ -400,11 +402,10 @@
             reader.readAsArrayBuffer(file);
         }
 
-        // Baixar planilha modelo
         function downloadTemplate() {
             const templateData = [
-                { Nome: "Exemplo Atleta 1", Box: "CrossFit Leões", Categoria: "RX Masculino", WOD1: 1, WOD2: 2, WOD3: 1, Pontos: 4 },
-                { Nome: "Exemplo Atleta 2", Box: "CF Itatiba", Categoria: "RX Masculino", WOD1: 2, WOD2: 1, WOD3: 2, Pontos: 5 }
+                { Nome: "Exemplo Atleta 1", Box: "CrossFit Leões", Categoria: "RX Masculino", WOD1: 85, WOD2: 90, WOD3: 75, WOD4: 80, WOD5: 95, WOD6: 88, WOD7: 92, Pontos: 605 },
+                { Nome: "Exemplo Atleta 2", Box: "CF Itatiba", Categoria: "RX Masculino", WOD1: 80, WOD2: 85, WOD3: 80, WOD4: 85, WOD5: 90, WOD6: 85, WOD7: 88, Pontos: 593 }
             ];
             const ws = XLSX.utils.json_to_sheet(templateData);
             const wb = XLSX.utils.book_new();
@@ -418,7 +419,6 @@
             showMessage('Restaurado', 'Os dados padrão do torneio foram restaurados.', '🔄');
         }
 
-        // Inicialização
         window.onload = function() {
             renderRanking();
         }
