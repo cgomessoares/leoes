@@ -280,7 +280,7 @@
             }
 
             athletes.sort((a, b) => {
-                if (a.pontos !== b.pontos) return a.pontos - b.pontos;
+                if (a.pontos !== b.pontos) return b.pontos - a.pontos;
                 return (a.nome || '').localeCompare(b.nome || '');
             });
 
