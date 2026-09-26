@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ranking Oficial | Calabouço Games 2026 - CrossFit Leões</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        darkbg: '#0a0a0c',
+                        cardbg: '#141418',
+                        accentpurple: '#9333ea',
+                        accentpurplelight: '#a78bfa',
+                        bronze: '#8a7a99',
+                        silver: '#c0c0c0',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html, body {
+            background-color: #0a0a0c;
+            color: #f3f4f6;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+        *, *:before, *:after {
+            box-sizing: border-box;
+        }
+        .hero-industrial {
+            background: linear-gradient(180deg, rgba(10, 10, 12, 0.9) 0%, rgba(10, 10, 12, 0.98) 100%),
+                        radial-gradient(circle at center, rgba(147, 51, 234, 0.12) 0%, transparent 70%);
+        }
+        .card-border {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .card-border:hover {
+            border-color: rgba(167, 139, 250, 0.35);
+        }
+        .spin {
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-violet-500 selection:text-white w-full overflow-x-hidden">
+
+    <header class="sticky top-0 z-50 bg-darkbg/95 backdrop-blur-md border-b border-white/15 w-full">
+        <div class="w-full max-w-6xl mx-auto px-3 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-2 sm:space-x-3">
+                <div>
+                    <span class="block text-[8px] sm:text-xs uppercase tracking-widest text-violet-400 font-extrabold">CrossFit Leões</span>
+                    <span class="text-xs sm:text-lg font-black tracking-wider text-white">CALABOUÇO GAMES 2026</span>
+                </div>
+            </div>
+            <button onclick="fetchRankingData(true)" id="refreshBtn" class="bg-zinc-800 hover:bg-zinc-700 text-violet-300 border border-violet-400/30 px-3 py-1.5 rounded-lg font-bold transition flex items-center space-x-2 text-xs cursor-pointer">
+                <span id="refreshIcon">🔄</span>
+                <span>Atualizar</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="w-full">
+        <section id="ranking" class="py-10 sm:py-16 bg-darkbg w-full">
+            <div class="w-full max-w-5xl mx-auto px-4">
+                <div class="text-center max-w-2xl mx-auto mb-8 space-y-2 hero-industrial rounded-2xl py-6">
+                    <span class="inline-flex items-center space-x-2 bg-violet-500/10 border border-violet-500/30 px-3 py-1.5 rounded-full text-violet-300 text-[10px] sm:text-xs font-bold uppercase tracking-widest">
+                        ⚔️ 2ª Edição Oficial • Sábado, 26/09/2026
+                    </span>
+                    <h2 class="text-[10px] sm:text-xs uppercase tracking-widest text-violet-400 font-extrabold mb-1">Classificação Geral</h2>
+                    <h3 class="text-xl sm:text-3xl font-black uppercase text-white">Ranking dos Atletas</h3>
+                </div>
+
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-6 gap-4">
+                    <!-- Filtros por Categoria -->
+                    <div class="flex flex-wrap items-center gap-1.5">
+                        <button onclick="filterCategory('Todos')" id="btn-cat-Todos" class="cat-btn bg-violet-500 text-white px-2.5 py-1.5 rounded-lg text-[10px] sm:text-xs font-bold uppercase transition cursor-pointer">Todos</button>
+                        <button onclick="filterCategory('Iniciante Feminino')" id="btn-cat-Iniciante Feminino" class="cat-btn bg-zinc-800 text-gray-300 hover:text-white px-2.5 py-1.5 rounded-lg text-[10px] sm:text-xs font-bold uppercase transition cursor-pointer">Iniciante Fem</button>
+                        <button onclick="filterCategory('Scale Feminino')" id="btn-cat-Scale Feminino" class="cat-btn bg-zinc-800 text-gray-300 hover:text-white px-2.5 py-1.5 rounded-lg text-[10px] sm:text-xs font-bold uppercase transition cursor-pointer">Scale Fem</button>
+                        <button onclick="filterCategory('Scale Masculino')" id="btn-cat-Scale Masculino" class="cat-btn bg-zinc-800 text-gray-300 hover:text-white px-2.5 py-1.5 rounded-lg text-[10px] sm:text-xs font-bold uppercase transition cursor-pointer">Scale Masc</button>
+                        <button onclick="filterCategory('RX Feminino')" id="btn-cat-RX Feminino" class="cat-btn bg-zinc-800 text-gray-300 hover:text-white px-2.5 py-1.5 rounded-lg text-[10px] sm:text-xs font-bold uppercase transition cursor-pointer">RX Fem</button>
+                        <button onclick="filterCategory('RX Masculino')" id="btn-cat-RX Masculino" class="cat-btn bg-zinc-800 text-gray-300 hover:text-white px-2.5 py-1.5 rounded-lg text-[10px] sm:text-xs font-bold uppercase transition cursor-pointer">RX Masc</button>
+                    </div>
+                </div>
+
+                <!-- Barra de pesquisa e contagem -->
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-3 mb-4">
+                    <div class="w-full sm:w-72">
+                        <input type="text" id="searchInput" oninput="renderRanking()" placeholder="Buscar atleta ou box..." class="w-full bg-cardbg border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-violet-400 transition">
+                    </div>
+                    <div class="text-xs text-gray-400 font-medium flex items-center space-x-3">
+                        <span>Mostrando <span id="athleteCount" class="text-violet-300 font-bold">0</span> atletas</span>
+                        <span id="lastUpdated" class="text-[10px] text-gray-500"></span>
+                    </div>
+                </div>
+
+                <!-- Aviso de carregamento / erro -->
+                <div id="statusBanner" class="hidden mb-4 text-xs px-4 py-2.5 rounded-xl border"></div>
+
+                <!-- Tabela responsiva com scroll horizontal otimizado -->
+                <div class="bg-cardbg rounded-xl card-border overflow-hidden shadow-xl w-full">
+                    <div class="overflow-x-auto w-full" style="-webkit-overflow-scrolling: touch;">
+                        <table class="w-full text-left border-collapse min-w-[600px]">
+                            <thead>
+                                <tr class="bg-zinc-900 border-b border-white/10 text-[10px] sm:text-xs font-bold uppercase text-violet-300 tracking-wider">
+                                    <th class="py-3 px-3">Pos</th>
+                                    <th class="py-3 px-3">Atleta</th>
+                                    <th class="py-3 px-3">Box / Equipe</th>
+                                    <th class="py-3 px-3">Categoria</th>
+                                    <th class="py-3 px-3 text-center">WOD 1</th>
+                                    <th class="py-3 px-3 text-center">WOD 2</th>
+                                    <th class="py-3 px-3 text-center">WOD 3</th>
+                                    <th class="py-3 px-3 text-center">WOD 4</th>
+                                    <th class="py-3 px-3 text-center">WOD 5</th>
+                                    <th class="py-3 px-3 text-center">WOD 6</th>
+                                    <th class="py-3 px-3 text-center">WOD 7</th>
+                                    <th class="py-3 px-3 text-right">Pontos</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rankingTableBody" class="divide-y divide-white/5 text-xs">
+                                <!-- Preenchido dinamicamente via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-darkbg border-t border-white/10 py-8 text-center text-xs text-gray-500 w-full">
+        <div class="max-w-5xl mx-auto px-4 space-y-2">
+            <p class="font-bold text-gray-400 uppercase tracking-wider">Calabouço Games 2026 • CrossFit Leões Itatiba</p>
+            <p>Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // ======================================================================
+        // CONFIGURAÇÃO: link da planilha do Google Sheets publicada como CSV.
+        // Para trocar os dados, edite a planilha no Google Sheets - o site
+        // sempre busca a versão mais recente automaticamente, sem precisar
+        // mexer neste código de novo.
+        // ======================================================================
+        const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQmstka9kVap6xFADfOKvs5sMntCq_2Jlhn2Bt9yxUqZNGyTnqEHlCMyfLYUYUGvqqNSAPsLMytmLwM/pub?output=csv";
+
+        // Dados de exemplo, usados apenas se a planilha não puder ser carregada
+        // (ex: sem internet ou link errado), para a página nunca ficar vazia.
+        const fallbackAthletes = [
+            { nome: "Lucas Silva", box: "CrossFit Leões", categoria: "RX Masculino", wod1: 1, wod2: 2, wod3: 1, wod4: 0, wod5: 0, wod6: 0, wod7: 0, pontos: 4 },
+            { nome: "Matheus Oliveira", box: "CF Itatiba", categoria: "RX Masculino", wod1: 2, wod2: 1, wod3: 3, wod4: 0, wod5: 0, wod6: 0, wod7: 0, pontos: 6 },
+            { nome: "Camila Souza", box: "CrossFit Leões", categoria: "RX Feminino", wod1: 1, wod2: 1, wod3: 2, wod4: 0, wod5: 0, wod6: 0, wod7: 0, pontos: 4 }
+        ];
+
+        let allAthletes = [];
+        let currentCategory = 'Todos';
+
+        function setStatus(message, type) {
+            const banner = document.getElementById('statusBanner');
+            if (!message) {
+                banner.classList.add('hidden');
+                return;
+            }
+            const styles = {
+                loading: 'bg-violet-500/10 border-violet-500/30 text-violet-300',
+                error: 'bg-red-500/10 border-red-500/30 text-red-300',
+                ok: 'bg-green-500/10 border-green-500/30 text-green-300'
+            };
+            banner.className = 'mb-4 text-xs px-4 py-2.5 rounded-xl border ' + (styles[type] || styles.loading);
+            banner.innerText = message;
+            banner.classList.remove('hidden');
+        }
+
+        function normalizeRow(row, idx) {
+            const get = (keys) => {
+                for (const k of keys) {
+                    if (row[k] !== undefined && row[k] !== '') return row[k];
+                }
+                return undefined;
+            };
+            return {
+                nome: get(['Nome', 'nome', 'Atleta', 'atleta']) || ('Atleta ' + (idx + 1)),
+                box: get(['Box', 'box', 'Equipe', 'equipe']) || 'CrossFit Leões',
+                categoria: get(['Categoria', 'categoria']) || 'Scale Masculino',
+                wod1: parseInt(get(['WOD1', 'wod1'])) || 0,
+                wod2: parseInt(get(['WOD2', 'wod2'])) || 0,
+                wod3: parseInt(get(['WOD3', 'wod3'])) || 0,
+                wod4: parseInt(get(['WOD4', 'wod4'])) || 0,
+                wod5: parseInt(get(['WOD5', 'wod5'])) || 0,
+                wod6: parseInt(get(['WOD6', 'wod6'])) || 0,
+                wod7: parseInt(get(['WOD7', 'wod7'])) || 0,
+                pontos: parseInt(get(['Pontos', 'pontos'])) || 0
+            };
+        }
+
+        function fetchRankingData(isManualRefresh) {
+            const icon = document.getElementById('refreshIcon');
+            icon.classList.add('spin');
+            if (isManualRefresh) setStatus('Buscando dados mais recentes da planilha...', 'loading');
+
+            // Adiciona um parâmetro aleatório para evitar cache antigo do navegador/CDN
+            const urlComCacheBuster = SHEET_CSV_URL + (SHEET_CSV_URL.includes('?') ? '&' : '?') + 'cachebust=' + Date.now();
+
+            fetch(urlComCacheBuster)
+                .then(res => {
+                    if (!res.ok) throw new Error('Falha ao buscar a planilha (status ' + res.status + ')');
+                    return res.text();
+                })
+                .then(csvText => {
+                    const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
+                    if (!parsed.data || parsed.data.length === 0) {
+                        throw new Error('Planilha retornou vazia');
+                    }
+                    allAthletes = parsed.data.map(normalizeRow);
+                    renderRanking();
+                    const now = new Date();
+                    document.getElementById('lastUpdated').innerText =
+                        'Atualizado às ' + now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+                    setStatus(isManualRefresh ? 'Dados atualizados com sucesso!' : '', isManualRefresh ? 'ok' : null);
+                    if (isManualRefresh) setTimeout(() => setStatus(null), 2500);
+                })
+                .catch(err => {
+                    console.error(err);
+                    if (allAthletes.length === 0) {
+                        allAthletes = fallbackAthletes;
+                        renderRanking();
+                    }
+                    setStatus('Não foi possível carregar a planilha agora. Mostrando dados de exemplo/últimos carregados.', 'error');
+                })
+                .finally(() => {
+                    icon.classList.remove('spin');
+                });
+        }
+
+        // Filtro por categoria
+        function filterCategory(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.classList.remove('bg-violet-500', 'text-white');
+                btn.classList.add('bg-zinc-800', 'text-gray-300');
+            });
+            const activeBtn = document.getElementById('btn-cat-' + cat);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-zinc-800', 'text-gray-300');
+                activeBtn.classList.add('bg-violet-500', 'text-white');
+            }
+            renderRanking();
+        }
+
+        // Renderizar a tabela do ranking
+        function renderRanking() {
+            let athletes = allAthletes.slice();
+            const search = document.getElementById('searchInput').value.toLowerCase();
+
+            if (currentCategory !== 'Todos') {
+                athletes = athletes.filter(a => (a.categoria || '').toLowerCase() === currentCategory.toLowerCase());
+            }
+
+            if (search) {
+                athletes = athletes.filter(a =>
+                    (a.nome || '').toLowerCase().includes(search) ||
+                    (a.box || '').toLowerCase().includes(search)
+                );
+            }
+
+            athletes.sort((a, b) => {
+                if (a.pontos !== b.pontos) return a.pontos - b.pontos;
+                return (a.nome || '').localeCompare(b.nome || '');
+            });
+
+            const tbody = document.getElementById('rankingTableBody');
+            tbody.innerHTML = '';
+            document.getElementById('athleteCount').innerText = athletes.length;
+
+            if (athletes.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="12" class="text-center py-8 text-gray-500 text-xs">Nenhum atleta encontrado nesta categoria.</td></tr>`;
+                return;
+            }
+
+            athletes.forEach((atleta, index) => {
+                let badgeClass = 'text-gray-400 font-bold';
+                let rowBg = '';
+                if (index === 0) { badgeClass = 'text-violet-300 font-black text-sm'; rowBg = 'bg-violet-500/5'; }
+                else if (index === 1) { badgeClass = 'text-gray-200 font-bold'; }
+                else if (index === 2) { badgeClass = 'text-violet-500 font-bold'; }
+
+                const tr = document.createElement('tr');
+                tr.className = `hover:bg-zinc-800/50 transition border-b border-white/5 ${rowBg}`;
+                tr.innerHTML = `
+                    <td class="py-3 px-3 ${badgeClass}">#${index + 1}</td>
+                    <td class="py-3 px-3 font-bold text-white">${escapeHtml(atleta.nome)}</td>
+                    <td class="py-3 px-3 text-gray-400">${escapeHtml(atleta.box)}</td>
+                    <td class="py-3 px-3"><span class="bg-zinc-800 text-gray-300 px-2 py-0.5 rounded text-[10px] font-semibold">${escapeHtml(atleta.categoria)}</span></td>
+                    <td class="py-3 px-3 text-center text-gray-300 font-mono">${atleta.wod1}</td>
+                    <td class="py-3 px-3 text-center text-gray-300 font-mono">${atleta.wod2}</td>
+                    <td class="py-3 px-3 text-center text-gray-300 font-mono">${atleta.wod3}</td>
+                    <td class="py-3 px-3 text-center text-gray-300 font-mono">${atleta.wod4}</td>
+                    <td class="py-3 px-3 text-center text-gray-300 font-mono">${atleta.wod5}</td>
+                    <td class="py-3 px-3 text-center text-gray-300 font-mono">${atleta.wod6}</td>
+                    <td class="py-3 px-3 text-center text-gray-300 font-mono">${atleta.wod7}</td>
+                    <td class="py-3 px-3 text-right font-black text-violet-300 font-mono">${atleta.pontos}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function escapeHtml(str) {
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        // Inicialização: busca os dados assim que a página carrega
+        window.onload = function() {
+            fetchRankingData(false);
+        };
+    </script>
+</body>
+</html>
